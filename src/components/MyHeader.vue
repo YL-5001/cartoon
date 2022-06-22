@@ -21,6 +21,12 @@ export default {
 button {
     position: absolute;
     top: 2vh;
-    left: 3vh;
+    left: 2vh;
+    width: 5vw;
+    height: 4vh;
+    color: black;
+    background-color: #fff;
+    border: none;
+    border-radius: 5px;
 }
 </style>

@@ -1,15 +1,16 @@
 <template>
     <div class="ContentBox">
         <h2>内容</h2>
-        <Count></Count>
+        <ContentTable></ContentTable>
+        <h3>视频时长：{{this.$store.state.videoTime}}</h3>
     </div>
 </template>
 
 <script>
-import Count from '@/components/Count.vue'
+import ContentTable from '@/components/ContentTable.vue'
 export default {
     components: {
-        Count
+        ContentTable
     }
 }
 </script>
