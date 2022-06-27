@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-button class="btn" type="text" @click="dialogFormVisible = true">添加</el-button>
+    <el-button class="btn" type="text" @click="dialogFormVisible = true">修改</el-button>
 
     <el-dialog title="详细信息" :visible.sync="dialogFormVisible">
     <el-form :model="form">
@@ -10,6 +10,9 @@
             <el-option label="战船" value="zhanchuan"></el-option>
         </el-select>
         </el-form-item>
+        <el-form-item label="组名" :label-width="formLabelWidth">
+        <el-input v-model="form.label" autocomplete="off"></el-input>
+        </el-form-item>
         <el-form-item label="名称" :label-width="formLabelWidth">
         <el-input v-model="form.name" autocomplete="off"></el-input>
         </el-form-item>
@@ -17,7 +20,7 @@
         <el-input v-model="form.cost" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item label="地址" :label-width="formLabelWidth">
-        <el-input v-model="form.src" autocomplete="off"></el-input>
+        <el-input type="file" v-model="form.src" autocomplete="off">上传文件</el-input>
         </el-form-item>
         
     </el-form>
@@ -35,29 +38,24 @@ export default {
         return {
             dialogFormVisible: false,
             form: {
-                $treeNodeId:7,
-                name: '',
-                cost:'',
+                $treeNodeId:0,
                 region: '',
+                label:'',
+                name:'',
+                cost:'',
                 src:''
-                // date1: '',
-                // date2: '',
-                // delivery: false,
-                // type: [],
-                // resource: '',
-                // desc: ''
             },
         formLabelWidth: '120px'
         }
     },
     methods: {
         doIt(){
-            console.log('点击了确定')
+            console.log('点击了修改')
         },
         sendMsg(){
-             //func: 是父组件指定的传数据绑定的函数，this.form:子组件给父组件传递的数据
-             this.$emit('func',this.form)
-             this.form.$treeNodeId++
+            // this.form.$treeNodeId = this.$store.state.n
+            //func: 是父组件指定的传数据绑定的函数，this.form:子组件给父组件传递的数据
+            this.$emit('func',this.form)
         }
     }
 }

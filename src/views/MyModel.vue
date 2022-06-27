@@ -2,8 +2,8 @@
         <el-container class="mycontain">
             <MyHeader></MyHeader>
             <el-container>
-                <NavBar></NavBar>
-                <MyModelPart></MyModelPart>
+                <NavBar @getClick="getClick"></NavBar>
+                <MyModelPart ref="getClickEvent"></MyModelPart>
                 <MyContent></MyContent>
             </el-container>
         </el-container>
@@ -21,7 +21,14 @@ export default {
         NavBar,
         MyModelPart,
         MyContent
-    }
+    },
+    //兄弟组件调用方法
+    //NavBar想调用MyModelPart的子组件的方法
+    methods: {
+        getClick(){
+          this.$ref.getClickEvent.getVideoTime()
+      },
+    },
 }
 </script>
 

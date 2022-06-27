@@ -1,7 +1,7 @@
 <template>
   <div class="ModelBox">
       <h2>Model</h2>
-      <MyCartoon></MyCartoon>
+      <MyCartoon ref="myCartoon"></MyCartoon>
   </div>
 </template>
 
@@ -10,7 +10,12 @@ import MyCartoon from './MyCartoon.vue'
 export default {
   components:{
     MyCartoon
-  }
+  },
+  methods: {
+    getMyCartoonClick(){
+      this.$refs.myCartoon.getVideoTime()
+    }
+  },
 }
 </script>
 

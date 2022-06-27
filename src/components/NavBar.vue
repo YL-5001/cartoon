@@ -4,6 +4,7 @@
             :data="data" 
             node-key="$treeNodeId"
             ref="treeRef"
+            highlight-current="true"
             :props="defaultProps" 
             @node-click="handleNodeClick">
         </el-tree>
@@ -18,15 +19,16 @@
           <div><button class="treeDel" @click="treeDel">删除</button></div>
           
           <!-- 修改 -->
-          <div><button class="treeRevise" @click="treeRevise">修改</button></div>
-          
+          <div class="treeRevise">
+            <ReviseNav @func="reviseMsgFormSon"></ReviseNav>
+          </div>
         </div>
     </div>
 </template>
 
 <script>
-import { log } from 'video.js';
 import dialogForm from './dialogForm.vue'
+import ReviseNav from './ReviseNav.vue'
   export default {
     data() {
       return {
@@ -71,6 +73,7 @@ import dialogForm from './dialogForm.vue'
     },
     components:{
       dialogForm,
+      ReviseNav
     },
     methods: {
       //接收子组件传递过来的数据(data就是form)
@@ -78,15 +81,14 @@ import dialogForm from './dialogForm.vue'
         // console.log(data);
         this.msgFormSon = data
         if(this.msgFormSon.region === 'qiche') {
-          this.data[0].children.push({label: this.msgFormSon.name})
+          this.data[0].children.push({label: this.msgFormSon.name,$treeNodeId: data.$treeNodeId})
           console.log(this.msgFormSon)
           //添加时选择的类型
           console.log(this.msgFormSon.region)
-          // console.log(this.msgFormSon)
           this.$store.state.car.push(this.msgFormSon)
         }
         else if(this.msgFormSon.region === 'zhanchuan') {
-          this.data[1].children.push({label: this.msgFormSon.name})
+          this.data[1].children.push({label: this.msgFormSon.name,$treeNodeId: data.$treeNodeId})
           console.log(this.msgFormSon)
           //添加时选择的类型
           console.log(this.msgFormSon.region)
@@ -94,43 +96,39 @@ import dialogForm from './dialogForm.vue'
           this.$store.state.ship.push(this.msgFormSon)
         }
       },
+      //----------点击切换视频----------
+      // getClick(){
+      //     this.$emit('getClick');
+      // },
       //点击tree，更新Vuex里面的数据n
       handleNodeClick(data,n) {
         this.delData = data
-        console.log(this.$store.state.car)
-        // this.$store.state.n = n.id
         this.$store.state.n = data.$treeNodeId
-        // this.$store.state.videoUrl = this.$store.state.car[data.$treeNodeId - 2].videoSrc
-        // this.$store.commit('getN',n.id)
-        // this.$store.commit('getSrc')
-        console.log(this.$store.state.n)
-        // console.log(this.$store.state.car[0])
-        console.log(data.$treeNodeId)
-        //视频
-        // this.$store.state.videoUrl = this.$store.state.car[0].src
-        // console.log(this.$store.state.videoUrl)
-      },
-      //点击添加新对象到store
-      addToStore() {
-        this.$store.state.car.push(this.newCarObj);
-        // console.log(this.$store.state.car);
-        // console.log(this.$store.state.car[2]);
-        console.log(this.data[0].children);
-      },
-      //新增
-      addNode(){
-        let id = Math.ceil(Math.random() * 100);
-        let treeD = { id: id, label: 'CAR3' };
-        this.$refs.tree.append(treeD, this.currentNode.parent);
+        console.log('---------------------------');
+        console.log('treeNodeId:', data.$treeNodeId)
+        console.log(this.$store.state.videoTime)
+        console.log(this.$store.state.car[data.$treeNodeId - 2])
+        console.log(this.$store.state.ship[data.$treeNodeId - 5])
+        this.callRefresh()
+        //----------点击切换视频----------
+        //this.getClick()
       },
       //删除
       treeDel(){
         this.$refs.treeRef.remove(this.delData)
       },
       //修改
-      treeRevise(){
-        console.log('点击了修改');
-      }
+      reviseMsgFormSon(data){
+        console.log('-------------')
+        this.$store.state.xLabel = data.label
+        this.$store.state.car[this.$store.state.n - 2].name = data.name
+        this.$store.state.car[this.$store.state.n - 2].cost = data.cost
+        this.$store.state.car[this.$store.state.n - 2].src = data.src
+      },
+      //拨动Vuex的开关
+      callRefresh() {
+ 				this.$store.commit('setRefreshSwitch')
+ 			}
     },
   }
 </script>
@@ -159,6 +157,15 @@ import dialogForm from './dialogForm.vue'
   justify-content: space-around;
   /* justify-content: space-around; */
 }
+/* 添加按钮 */
+.change {
+  border: none;
+  border-radius: 5px;
+}
+.change:hover {
+  color: #fff;
+  background-color: #409EFF;
+}
 /* 删除按钮 */
 .treeDel {
   padding: 2vh 1.5vw;
@@ -175,13 +182,8 @@ import dialogForm from './dialogForm.vue'
 }
 /* 修改按钮 */
 .treeRevise {
-  padding: 2vh 1.5vw;
   border: none;
-  color: #409EFF;
-  background-color: #fff;
   border-radius: 5px;
-  cursor: pointer;
-  transition: color .5s , background 1s;
 }
 .treeRevise:hover {
   color: #fff;

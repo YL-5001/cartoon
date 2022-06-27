@@ -32,9 +32,20 @@ data() {
 
     }
 },
-mounted: function() {
-    this.getVideoTime()
-},
+// mounted: function() {
+//     this.getVideoTime()
+// },
+computed: {
+ 			refreshSwitchStatus () {
+ 				return this.$store.getters.getRefreshSwitch
+ 			}
+ 		},
+watch:{
+ 			// 开关状态发生改变即调用**getVideoTime**方法
+ 			refreshSwitchStatus () {
+ 				this.getVideoTime()
+ 			}
+ 		},
 methods: {
     //切换视频
     // changeVideo(e){
@@ -45,8 +56,8 @@ methods: {
     getVideoTime(){
         this.$store.state.videoTime = document.getElementById("myVideo").duration
         console.log(this.$store.state.videoTime)
-        // let player = Video('myVideo');
-        // var videoLength = player.duration();
+        // let player = Video('myVideo')
+        // var videoLength = player.duration()
         // console.log(videoLength)
     },
     chooseVideo(){
