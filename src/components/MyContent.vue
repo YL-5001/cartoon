@@ -2,7 +2,7 @@
     <div class="ContentBox">
         <h2>内容</h2>
         <ContentTable></ContentTable>
-        <h3>视频时长：{{this.$store.state.videoTime}}</h3>
+        <h3>视频时长：{{this.$store.state.videoTime}}秒</h3>
     </div>
 </template>
 

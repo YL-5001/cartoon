@@ -15,7 +15,6 @@ Vue.prototype.$axios = axios
 Vue.prototype.$video = Video
 Vue.use(ElementUI)
 
-
 new Vue({
   router,
   store,
