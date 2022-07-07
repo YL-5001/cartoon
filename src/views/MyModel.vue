@@ -7,7 +7,7 @@
                 <MyContent></MyContent>
             </el-container>
         </el-container>
-</template>
+</template> 
 
 <script>
 import MyHeader from '@/components/MyHeader.vue'

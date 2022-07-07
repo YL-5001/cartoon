@@ -10,8 +10,8 @@
 </template>
 
 <script>
-
 export default {
+    
     components: {
         
     }
@@ -27,11 +27,11 @@ export default {
     .box {
         display: flex;
         align-items:center;  /*垂直居中*/
-        justify-content: space-between;
+        justify-content: space-around;
 
         width: 100vw;
         height: 50vh;
-        background-color: pink;
+        // background-color: pink;
         // margin:auto;
         // position: absolute;
         // top: 25%;

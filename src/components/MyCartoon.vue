@@ -5,6 +5,7 @@
         :src = "chooseVideo()"
         class="video1"
         controls = true
+        oncanplaythrough="myFunction(this)"
         >
     </video>
     <!-- <video 
@@ -47,10 +48,11 @@ watch:{
  			}
  		},
 methods: {
-    //切换视频
-    // changeVideo(e){
-    //     console.log(e.currentTarget.innerHTML)
-    //     this.videoUrl = this.$store.state.car[1].src
+    // onInputFileChange() {
+    //   var file = document.getElementById('file').files[0];
+    //   var url = URL.createObjectURL(file);
+    //   console.log(url);
+    //   document.getElementById("video_id").src = url;
     // },
     //获取视频时长
     getVideoTime(){
@@ -60,6 +62,7 @@ methods: {
         // var videoLength = player.duration()
         // console.log(videoLength)
     },
+    //根据点击，更换视频地址
     chooseVideo(){
         let currentVideo 
         switch (this.$store.state.n) {
@@ -85,8 +88,14 @@ methods: {
             break;
         }
         return currentVideo
-      }
+    },
+    myFunction(ele) {
+　　　　　//视频时长  单位秒
+      alert(Math.floor(ele.duration));
+      console.log(Math.floor(ele.duration));
+    }
 },
+
 }
 </script>
 
